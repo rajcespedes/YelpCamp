@@ -1,0 +1,43 @@
+<%- include('partials/header') %>
+
+
+<div class="row mt-2">
+	<div class="col-7">
+		<div class="card">
+			<h5 class="card-title"> <%= campground.name %> </h5>
+			<img src="<%= campground.image %>" class="card-img-top inShow" alt="...">
+		  	<div class="card-body">
+		    	<p class="card-text"><%= campground.description %></p>
+		  	</div>
+		  	<div class="card">
+				<div class="card-header">
+					<div class="row d-flex align-items-center">
+						<div class="col-3 col-height p-0">
+							<p>Comments</p>
+						</div>
+						<div class="col-9 d-flex justify-content-end">
+							<a id="commentBtn" class="btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Add comment</a>						
+						</div>
+					</div>
+				</div>
+				<% if(campground.comment) { %>
+					<% campground.comment.forEach(function(comment) { %>			
+				<div class="card">
+					<div class="card-body px-0">
+		    			<blockquote class="blockquote mb-0">
+		      			<p class="comment m-0"><%= comment.text %></p>
+		      			<footer class="blockquote-footer"><%= comment.author %>
+		      			 <!-- <cite title="Source Title">Source Title</cite> -->
+		      			</footer>
+		    			</blockquote>
+		  			</div>					
+				</div>
+  			<% }); %>
+				<% } %>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<%- include('partials/footer') %>
