@@ -9,7 +9,6 @@
 			</button>		
 		</a>
 	</div>
-
 	<div class="row row-cols-1 row-cols-md-3">
 		<% campgrounds.forEach(function(campgrounds) { %>
 			<div class="col mb-4">
@@ -21,18 +20,10 @@
 			      <div class="card-footer d-flex justify-content-center">
 			        <a href="/campgrounds/<%= campgrounds._id %>" class="btn btn-primary btn-sm" >More Info </a>
 			      </div>     
-
 			    </div>
-
 		  	</div>
-			
 		<% }); %>
-		
 	</div>	
-
 </div>	
-
-
-	<!-- <%= campgrounds.name %> -->
 
 <%- include('partials/footer') %>

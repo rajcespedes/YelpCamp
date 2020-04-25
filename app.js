@@ -1,10 +1,15 @@
-var express 	= require('express'),
-	app 		= express(),
-	bodyParser 	= require("body-parser"),
-	mongoose 	= require('mongoose'),
-	Campground 	= require('./models/campground'),
-	Comment		= require('./models/comment'),
-	seed		= require('./models/seed');
+var express 				= require('express'),
+	app 					= express(),
+	bodyParser 				= require("body-parser"),
+	mongoose 				= require('mongoose'),
+	Campground 				= require('./models/campground'),
+	Comment					= require('./models/comment'),
+	seed					= require('./models/seed'),
+	User 					= require('./models/user'),
+	passport				= require('passport'),
+	localStrategy 			= require('passport-local'),
+	passportLocalMongoose	= require('passport-local-mongoose');
+
 
 mongoose.connect('mongodb://localhost:27017/YelpCamp',{useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -21,6 +26,18 @@ app.set("view engine","ejs");
 app.use(express.static('public'));
 
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(require('express-session')({
+	secret: "Secret string for session handling",
+	resave: false,
+	saveUninitialized: false
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.listen(3000);
 
@@ -41,6 +58,31 @@ app.get("/campgrounds",function(req,res){
 	});
 	
 });
+
+app.get('/register',function(req,res){
+	res.render('register');
+});
+
+app.post('/register',function(req,res){
+	User.register(new User({ username: req.body.username }), req.body.password, function(error,user){
+		console.log(user);
+		if(error) {
+			console.log(error);
+			res.redirect('/register');
+		}
+		passport.authenticate("local")(req,res,function(){
+
+			res.redirect('/campgrounds');
+		});
+	});
+});
+
+app.get('/login',function(req,res){
+	res.render('login');
+});
+
+// app.post()
+
 
 app.get('/campgrounds/new',function(req,res) {
 	res.render('newCampground');
@@ -95,7 +137,6 @@ app.get("/campgrounds/:id",function(req,res){
 		if(error){
 			console.log(error);
 		} else {
-			// console.log(foundCampground);
 			res.render('show', {campground: foundCampground});
 		}
 	});
