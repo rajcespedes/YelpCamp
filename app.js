@@ -36,6 +36,8 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
+passport.use(new localStrategy(User.authenticate()));
+
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -43,17 +45,34 @@ app.listen(3000);
 
 // seed();
 
+function isLoggedIn(req,res,next) {
+	if(req.isAuthenticated()){
+		return next();
+	}
+	res.redirect('/login');
+}
+
+app.use(function(req,res,next){
+	res.locals.user = req.user;
+	next();
+});
+
 app.get("/",function(req,res){
 	res.render("home");
 });
 
-app.get("/campgrounds",function(req,res){
+app.get("/campgrounds",isLoggedIn,function(req,res){
+	console.log(req.user.username);
 	Campground.find({}, function(error,campground){
 		if(error) {
 			console.log(error);
 		} else {
-			console.log("NEWLY ADDED CAMPGROUND");
-			res.render("index",{ campgrounds: campground});
+			// console.log("NEWLY ADDED CAMPGROUND");
+			res.render("index",
+			{ 
+				campgrounds: campground,
+				user: req.user.username
+			});
 		}
 	});
 	
@@ -81,7 +100,12 @@ app.get('/login',function(req,res){
 	res.render('login');
 });
 
-// app.post()
+app.post('/login',passport.authenticate("local",{
+	successRedirect: '/campgrounds',
+	failureRedirect: '/login'
+}),function(req,res){
+
+});
 
 
 app.get('/campgrounds/new',function(req,res) {
@@ -99,20 +123,23 @@ app.post("/campgrounds", function(req,res){
 			if(error){
 				console.log(error);
 			} else {
-				console.log('NEWLY CREATED CAMPGROUND');
+				// console.log('NEWLY CREATED CAMPGROUND');
 				console.log(newCampground);
 				res.redirect("/campgrounds");
 		}
-	});
-	
-	
+	});	
 });
 
-app.get('/campgrounds/:id/comments/new',function(req,res){
+app.get('/logout',function(req,res){
+	req.logout();
+	res.redirect('/');
+});
+
+app.get('/campgrounds/:id/comments/new',isLoggedIn,function(req,res){
 	res.render('newComment', {id: req.params.id});
 });
 
-app.post('/campgrounds/:id/comments',function(req,res){
+app.post('/campgrounds/:id/comments',isLoggedIn,function(req,res){
 	Campground.findById(req.params.id,function(error,foundCamp){
 		if(!error) {
 			console.log(req.body.comment);
