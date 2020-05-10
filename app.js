@@ -4,23 +4,18 @@ var express 				= require('express'),
 	mongoose 				= require('mongoose'),
 	Campground 				= require('./models/campground'),
 	Comment					= require('./models/comment'),
-	// seed					= require('./models/seed'),
+	seed					= require('./models/seed'),
 	User 					= require('./models/user'),
 	passport				= require('passport'),
 	localStrategy 			= require('passport-local'),
-	passportLocalMongoose	= require('passport-local-mongoose');
+	passportLocalMongoose	= require('passport-local-mongoose'),
+	methodOverride			= require('method-override');
 
 
 
 var commentRoutes = require('./routes/commentRoutes'),
 	loginRoutes	  = require('./routes/loginRoutes'),
 	campgroundRoutes = require('./routes/campgroundRoutes');
-
-
-//ROUTE IMPORTS
-
-
-	// isLoggedIn 	  = require('./middleware');
 
 
 mongoose.connect('mongodb://localhost:27017/YelpCamp',{useNewUrlParser: true, useUnifiedTopology: true});
@@ -56,20 +51,15 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(loginRoutes);
 app.use(campgroundRoutes);
-app.use(commentRoutes);
+app.use('/campgrounds/:id/comments',commentRoutes);
 
 app.listen(3000);
 
+app.use(methodOverride("_method"));
+
+// seed();
 
 app.use(function(req,res,next){
 	res.locals.user = req.user;
 	next();
 });
-
-
-// LOGIN RELATED ROUTES
-
-// COMMENT RELATED ROUTES
-
-
-// CAMPGROUNDS RELATED ROUTES

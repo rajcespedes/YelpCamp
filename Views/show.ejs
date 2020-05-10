@@ -7,7 +7,18 @@
 			<h5 class="card-title"> <%= campground.name %> </h5>
 			<img src="<%= campground.image %>" class="card-img-top inShow" alt="...">
 		  	<div class="card-body">
-		    	<p class="card-text"><%= campground.description %></p>
+		    	<p class="card-text m-0"><%= campground.description %></p>
+		    	<footer class="authorFooter">Created by <%= campground.author.username %></footer>
+
+		    	<% if(user && campground.author.id.equals(user._id)) { %>
+		    		<div class="mt-2">
+			    		<a class="btn btn-warning editBtn" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+				    	<form class="deleteBtn" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+				    		<input  class="btn btn-danger" type="submit" name="" value="Delete">		    		
+				    	</form>
+		    		</div>
+		    	<% } %>  	
+		    	
 		  	</div>
 		  	<div class="card">
 				<div class="card-header">
@@ -21,13 +32,18 @@
 					</div>
 				</div>
 				<% if(campground.comment) { %>
-					<% campground.comment.forEach(function(comment) { %>			
+					<% campground.comment.forEach(function(comment) { %>
 				<div class="card">
 					<div class="card-body px-0">
 		    			<blockquote class="blockquote mb-0">
 		      			<p class="comment m-0"><%= comment.text %></p>
-		      			<footer class="blockquote-footer"><%= comment.author %>
-		      			 <!-- <cite title="Source Title">Source Title</cite> -->
+		      			<footer class="blockquote-footer"><%= comment.author.username %>
+		      				<% if(user && comment.author.id.equals(user._id)) { %> 
+		      			 <a class="btn btn-warning btn-sm editBtn" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Edit</a>
+		      			 <form class="deleteBtn" action="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+		      			 	<button class="btn btn-danger btn-sm">Delete</button>
+		      			 </form>
+		      			 <% } %>
 		      			</footer>
 		    			</blockquote>
 		  			</div>					

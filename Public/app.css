@@ -20,3 +20,16 @@ img {
 .col-height{
 	height: 4vh;
 }
+
+.authorFooter {
+	color: gray;
+	font-size: 0.8em;
+}
+
+.deleteBtn {
+	display: inline;
+}
+
+.editBtn {
+	color: white;
+}
