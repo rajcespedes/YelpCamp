@@ -21,6 +21,7 @@ router.use(function(req,res,next){
 // }
  
 router.get("/",function(req,res){
+	// $('body').css('background-color','green');
 	res.render("home");
 });
 

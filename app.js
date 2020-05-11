@@ -31,6 +31,7 @@ db.once('open', function() {
 app.set("view engine","ejs");
 
 app.use(express.static('public'));
+// app.use(express.static('/'));
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -63,3 +64,4 @@ app.use(function(req,res,next){
 	res.locals.user = req.user;
 	next();
 });
+

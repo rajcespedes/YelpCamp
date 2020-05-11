@@ -33,3 +33,25 @@ img {
 .editBtn {
 	color: white;
 }
+
+.background1 {
+	background-image: url("https://cdn.pixabay.com/photo/2016/08/23/12/53/outdoor-1614238_960_720.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	/*position: center;*/
+}
+
+.background2 {
+	background-image: url('https://p0.pxfuel.com/preview/263/259/769/fire-wood-logs-flames.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.background3 {
+
+}
+
+.background4 {
+
+}
+
