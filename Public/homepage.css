@@ -1,0 +1,58 @@
+.background1 {
+	background-image: url("https://cdn.pixabay.com/photo/2016/08/23/12/53/outdoor-1614238_960_720.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	z-index: -1;
+	/*opacity: 0;*/
+
+}
+
+.background2 {
+	background-image: url('https://p0.pxfuel.com/preview/263/259/769/fire-wood-logs-flames.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	z-index: -1;
+	opacity: 0;
+}
+
+.background3 {
+	background-image: url('https://sharingnature.org/wp-content/uploads/2019/07/2_final.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	z-index: -1;
+	opacity: 0;
+}
+
+.background4 {
+	background-image: url("https://cdn.pixabay.com/photo/2016/08/23/12/53/outdoor-1614238_960_720.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	z-index: -1;
+
+}
+
+body {
+
+	/*z-index: 3;*/
+	height: 100vh;
+	width: 100vw;
+
+}
+
+.container {
+	z-index: 1;
+}
+
+img {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100vh;
+	width: 100vw;
+	z-index: -1;
+	/*display: inline;*/
+}
+
+h1 {
+	color: white;
+}
