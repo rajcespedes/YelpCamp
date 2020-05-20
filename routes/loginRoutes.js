@@ -7,6 +7,8 @@ var express = require('express'),
 
 router.use(function(req,res,next){
 	res.locals.user = req.user;
+	res.locals.errorMessage = req.flash('error');
+	res.locals.successMessage = req.flash('success');
 	next();
 });
 
@@ -19,12 +21,13 @@ router.post('/login',passport.authenticate("local",{
 	successRedirect: '/campgrounds',
 	failureRedirect: '/login'
 }),function(req,res){
-	
+	req.flash('success','Welcome! ' + user.username);
 });
 
 router.get('/logout',function(req,res){
 	req.logout();
-	res.redirect('/');
+	req.flash('success','You just logged out')
+	res.redirect('back');
 });
 
 router.get('/register',function(req,res){

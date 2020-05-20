@@ -8,24 +8,19 @@ var express 		= require('express'),
 
 router.use(methodOverride("_method"));
 
-router.use(function(req,res,next){
-	res.locals.user = req.user;
-	next();
-});
+// router.use(function(req,res,next){
+// 	res.locals.user = req.user;
+// 	next();
+// });
 
-// function isLoggedIn(req,res,next) {
-// 	if(req.isAuthenticated()){
-// 		return next();
-// 	}
-// 	res.redirect('/login');
-// }
- 
+// router.use(flash());
+
+
 router.get("/",function(req,res){
-	// $('body').css('background-color','green');
 	res.render("home");
 });
 
-router.get("/campgrounds",middleware.isLoggedIn,function(req,res){
+router.get("/campgrounds",function(req,res){
 	Campground.find({}, function(error,campground){
 		if(error) {
 			console.log(error);
@@ -41,7 +36,7 @@ router.get("/campgrounds",middleware.isLoggedIn,function(req,res){
 
 
 router.get('/campgrounds/new',middleware.isLoggedIn,function(req,res) {
-	res.render('newCampground');
+	res.render('newCampground', { message: req.flash('error')});
 });
 
 router.post("/campgrounds", function(req,res){

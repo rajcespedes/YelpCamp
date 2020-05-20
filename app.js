@@ -6,6 +6,7 @@ var express 				= require('express'),
 	Comment					= require('./models/comment'),
 	seed					= require('./models/seed'),
 	User 					= require('./models/user'),
+	flash					= require('connect-flash'),
 	passport				= require('passport'),
 	localStrategy 			= require('passport-local'),
 	passportLocalMongoose	= require('passport-local-mongoose'),
@@ -31,7 +32,6 @@ db.once('open', function() {
 app.set("view engine","ejs");
 
 app.use(express.static('public'));
-// app.use(express.static('/'));
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -41,8 +41,11 @@ app.use(require('express-session')({
 	saveUninitialized: false
 }));
 
+app.use(flash());
+
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 passport.use(new localStrategy(User.authenticate()));
 
@@ -62,6 +65,7 @@ app.use(methodOverride("_method"));
 
 app.use(function(req,res,next){
 	res.locals.user = req.user;
+	res.locals.errorMessage = req.flash('error');
 	next();
 });
 

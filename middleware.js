@@ -45,8 +45,8 @@ middlewareObj.checkIfAuthCamp = function (req,res,next){
 middlewareObj.isLoggedIn = function (req,res,next) {
 	if(req.isAuthenticated()){
 		return next();
-		console.log('this shit ran');
 	}
+	req.flash('error','Please, log in first');
 	res.redirect('/login');
 };
 
