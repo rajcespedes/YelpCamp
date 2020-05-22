@@ -8,13 +8,15 @@ middlewareObj.checkIfAuthComment = function (req,res,next){
 	if(req.isAuthenticated()) {
 		Comment.findById(req.params.commentId,function(error,founded){
 			if(error){
+				req.flash('error',error);
 				res.redirect('/campgrounds');
 			} else {
-				console.log(founded);
+				// console.log(founded);
 				if(founded.author.id.equals(req.user._id)){
 					next();
 				} else {
-					res.send('YOU ARE NOT ALLOWED TO DO THAT');
+					req.flash('error','You are not allowed to do that');
+					res.redirect('back');
 				}
 			}
 		});

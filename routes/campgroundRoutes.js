@@ -54,6 +54,7 @@ router.post("/campgrounds", function(req,res){
 				newCampground.author.username = req.user.username;
 				newCampground.save();
 				console.log(newCampground);
+				req.flash('success', 'New campground added!');
 				res.redirect("/campgrounds");
 		}
 	});	
@@ -77,6 +78,7 @@ router.put('/campgrounds/:id',middleware.checkIfAuthCamp,function(req,res){
 		if(!error) {
 			res.redirect('/campgrounds/' + req.params.id);
 		} else {
+			req.flash('success','Campground edited!');
 			res.redirect('/campgrounds/' + req.params.id);
 		}
 	});
@@ -92,12 +94,11 @@ router.delete('/campgrounds/:id',middleware.checkIfAuthCamp,function(req,res){
 	});
 });
 
-router.get("/campgrounds/:id",middleware.isLoggedIn,function(req,res){
+router.get("/campgrounds/:id",function(req,res){
 	Campground.findById(req.params.id).populate('comment').exec(function(error,foundCampground){
 		if(error){
 			console.log(error);
 		} else {
-			console.log(foundCampground);
 			res.render('show', {campground: foundCampground});
 		}
 	});

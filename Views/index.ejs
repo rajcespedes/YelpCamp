@@ -1,7 +1,13 @@
 <%- include('partials/header') %>
 
 <div class="container">
-	<h1><%= successMessage %>x</h1>
+
+	<% if (successMessage && successMessage.length > 0) { %>
+		<div class="alert alert-success">
+			<%= successMessage %>		
+		</div>
+	<% } %>
+
 	<div class="jumbotron mt-1 mb-3">
 		<h1>List of campgrounds</h1>
 		<a href="/campgrounds/new">

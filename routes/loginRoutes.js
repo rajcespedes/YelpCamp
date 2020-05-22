@@ -17,16 +17,20 @@ router.get('/login',function(req,res){
 	res.render('login');
 });
 
-router.post('/login',passport.authenticate("local",{
-	successRedirect: '/campgrounds',
-	failureRedirect: '/login'
-}),function(req,res){
-	req.flash('success','Welcome! ' + user.username);
+
+router.post('/login',function(req,res,next){
+	passport.authenticate('local',{
+		successRedirect: '/campgrounds',
+		failureRedirect: '/login',
+		failureFlash: true,
+		successFlash: 'Welcome! ' + req.body.username
+	})(req,res);
 });
 
 router.get('/logout',function(req,res){
+	console.log('reached here');
 	req.logout();
-	req.flash('success','You just logged out')
+	req.flash('success','You just logged out');
 	res.redirect('back');
 });
 
@@ -37,15 +41,14 @@ router.get('/register',function(req,res){
 router.post('/register',function(req,res){
 	User.register(new User({ username: req.body.username }), 
 		req.body.password, function(error,user){
-		// console.log(user);
 		if(error) {
-			console.log(error);
+			req.flash('error',error.message);
 			res.redirect('/register');
+		} else {
+			passport.authenticate("local")(req,res,function(){
+				res.redirect('/campgrounds');
+			});
 		}
-		passport.authenticate("local")(req,res,function(){
-
-			res.redirect('/campgrounds');
-		});
 	});
 });
 

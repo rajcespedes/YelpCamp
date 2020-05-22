@@ -1,7 +1,12 @@
 <%- include('partials/header') %>
 
 <div class="container">
-  <h1> <%= errorMessage %> </h1>
+  <% if(errorMessage && errorMessage.length > 0) { %>
+    <div class="alert alert-danger">
+      <%= errorMessage %>
+    </div>
+  <% } %>
+  
   <div class="row d-flex justify-content-center mt-4">
     <div class="col-4 ">
       <form action="/login" method="POST">

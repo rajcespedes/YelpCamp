@@ -2,6 +2,11 @@
 
 
 <div class="row mt-2">
+	<% if (successMessage && successMessage.length > 0) { %>
+		<div class="alert alert-success">
+			<%= successMessage %>		
+		</div>
+	<% } %>
 	<div class="col-7">
 		<div class="card">
 			<h5 class="card-title"> <%= campground.name %> </h5>
