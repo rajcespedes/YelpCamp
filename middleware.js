@@ -3,7 +3,6 @@ var Comment    = require('./models/comment');
 
 var middlewareObj = {}
 
-
 middlewareObj.checkIfAuthComment = function (req,res,next){
 	if(req.isAuthenticated()) {
 		Comment.findById(req.params.commentId,function(error,founded){
@@ -48,6 +47,7 @@ middlewareObj.isLoggedIn = function (req,res,next) {
 	if(req.isAuthenticated()){
 		return next();
 	}
+	req.session.redirectTo = req.originalUrl;
 	req.flash('error','Please, log in first');
 	res.redirect('/login');
 };

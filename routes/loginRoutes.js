@@ -9,18 +9,27 @@ router.use(function(req,res,next){
 	res.locals.user = req.user;
 	res.locals.errorMessage = req.flash('error');
 	res.locals.successMessage = req.flash('success');
+	// res.locals.route = req.route.path;
+	next();
+});
+
+router.use(function(req,res,next){
+	if(req.path != '/login' && req.session.redirectTo) {
+		delete req.session.redirectTo;
+	}
 	next();
 });
 
 
 router.get('/login',function(req,res){
+	// req.session.redirectTo = req.originalUrl;
 	res.render('login');
 });
 
 
 router.post('/login',function(req,res,next){
 	passport.authenticate('local',{
-		successRedirect: '/campgrounds',
+		successRedirect: req.session.redirectTo || '/campgrounds',
 		failureRedirect: '/login',
 		failureFlash: true,
 		successFlash: 'Welcome! ' + req.body.username

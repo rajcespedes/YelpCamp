@@ -25,6 +25,7 @@ router.get("/campgrounds",function(req,res){
 		if(error) {
 			console.log(error);
 		} else {
+			console.log(req.route.path);
 			res.render("index",
 			{ 
 				campgrounds: campground,
@@ -53,7 +54,6 @@ router.post("/campgrounds", function(req,res){
 				newCampground.author.id = req.user._id;
 				newCampground.author.username = req.user.username;
 				newCampground.save();
-				console.log(newCampground);
 				req.flash('success', 'New campground added!');
 				res.redirect("/campgrounds");
 		}
@@ -99,6 +99,7 @@ router.get("/campgrounds/:id",function(req,res){
 		if(error){
 			console.log(error);
 		} else {
+			req.session.redirectTo = req.originalUrl;
 			res.render('show', {campground: foundCampground});
 		}
 	});
