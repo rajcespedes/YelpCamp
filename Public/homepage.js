@@ -22,10 +22,10 @@ setInterval(function(){
 
 			var backgroundInterval = setInterval(function(){
 				
-				progressiveOpacity += .04;
 				$(`img:last`).css('opacity',progressiveOpacity);
+				progressiveOpacity += .04;
 
-				if(progressiveOpacity > 1) {
+				if(progressiveOpacity >= 1) {
 					clearInterval(backgroundInterval);
 				}
 
@@ -43,9 +43,9 @@ setInterval(function(){
 		}
 		
 
-	},1500);
+	},750);
 
-},3000);
+},3750);
 
 
 

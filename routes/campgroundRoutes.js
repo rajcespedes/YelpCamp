@@ -8,14 +8,6 @@ var express 		= require('express'),
 
 router.use(methodOverride("_method"));
 
-// router.use(function(req,res,next){
-// 	res.locals.user = req.user;
-// 	next();
-// });
-
-// router.use(flash());
-
-
 router.get("/",function(req,res){
 	res.render("home");
 });
@@ -23,6 +15,7 @@ router.get("/",function(req,res){
 router.get("/campgrounds",function(req,res){
 	Campground.find({}, function(error,campground){
 		if(error) {
+			req.flash('error',error);
 			console.log(error);
 		} else {
 			console.log(req.route.path);
@@ -45,10 +38,12 @@ router.post("/campgrounds", function(req,res){
 		{ 
 		  name: req.body.campName, 
 		  image: req.body.imageUrl, 
-		  description: req.body.description
+		  description: req.body.description,
+		  price: req.body.price
 		}, 
 		function(error,newCampground) {
 			if(error){
+				req.flash('error',error);
 				console.log(error);
 			} else {
 				newCampground.author.id = req.user._id;
@@ -72,13 +67,15 @@ router.put('/campgrounds/:id',middleware.checkIfAuthCamp,function(req,res){
 	var editCamp = {
 		name: req.body.campName,
 		image: req.body.imageUrl,
-		description: req.body.description
+		description: req.body.description,
+		price: req.body.price
 	};
 	Campground.findByIdAndUpdate(req.params.id,editCamp,function(error,editCamp){
 		if(!error) {
+			req.flash('success','Campground edited!');
 			res.redirect('/campgrounds/' + req.params.id);
 		} else {
-			req.flash('success','Campground edited!');
+			req.flash('error',error);
 			res.redirect('/campgrounds/' + req.params.id);
 		}
 	});
@@ -89,6 +86,7 @@ router.delete('/campgrounds/:id',middleware.checkIfAuthCamp,function(req,res){
 		if(error) {
 			res.redirect('/campgrounds');
 		} else {
+			req.flash('success','Campground deleted!');
 			res.redirect('/campgrounds');
 		}
 	});
@@ -97,6 +95,7 @@ router.delete('/campgrounds/:id',middleware.checkIfAuthCamp,function(req,res){
 router.get("/campgrounds/:id",function(req,res){
 	Campground.findById(req.params.id).populate('comment').exec(function(error,foundCampground){
 		if(error){
+			req.flash('error',error);
 			console.log(error);
 		} else {
 			req.session.redirectTo = req.originalUrl;

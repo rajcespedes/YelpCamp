@@ -10,7 +10,6 @@ middlewareObj.checkIfAuthComment = function (req,res,next){
 				req.flash('error',error);
 				res.redirect('/campgrounds');
 			} else {
-				// console.log(founded);
 				if(founded.author.id.equals(req.user._id)){
 					next();
 				} else {
@@ -20,7 +19,8 @@ middlewareObj.checkIfAuthComment = function (req,res,next){
 			}
 		});
 	} else {
-		res.send('YOU ARE NOT ALLOWED TO DO THAT');
+		req.flash('error','You are not allowed to do that');
+		res.redirect('/campgrounds/' + req.params.id);
 	}
 };
 
@@ -28,18 +28,20 @@ middlewareObj.checkIfAuthCamp = function (req,res,next){
 	if(req.isAuthenticated()) {
 		Campground.findById(req.params.id,function(error,founded){
 			if(error){
+				req.flash('error',error);
 				res.redirect('/campgrounds');
 			} else {
-				console.log(founded);
 				if(founded.author.id.equals(req.user._id)){
 					next();
 				} else {
-					res.send('YOU ARE NOT ALLOWED TO DO THAT');
+					req.flash('error','You are not allowed to do that');
+					res.redirect('/campgrounds/' + req.params.id);
 				}
 			}
 		});
 	} else {
-		res.send('YOU ARE NOT ALLOWED TO DO THAT');
+		req.flash('error','You are not allowed to do that');
+		res.redirect('/campgrounds/' + req.params.id);
 	}
 };
 

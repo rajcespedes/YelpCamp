@@ -9,7 +9,6 @@ router.use(function(req,res,next){
 	res.locals.user = req.user;
 	res.locals.errorMessage = req.flash('error');
 	res.locals.successMessage = req.flash('success');
-	// res.locals.route = req.route.path;
 	next();
 });
 
@@ -22,7 +21,6 @@ router.use(function(req,res,next){
 
 
 router.get('/login',function(req,res){
-	// req.session.redirectTo = req.originalUrl;
 	res.render('login');
 });
 

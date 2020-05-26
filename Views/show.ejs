@@ -4,16 +4,34 @@
 <div class="row mt-2">
 
 	<div class="col-7">
-			<% if (successMessage && successMessage.length > 0) { %>
-		<div class="alert alert-success">
-			<%= successMessage %>		
-		</div>
-	<% } %>
+		<% if (successMessage && successMessage.length > 0) { %>
+			<div class="alert alert-success">
+				<%= successMessage %>		
+			</div>
+		<% } %>
+
+		<% if (errorMessage && errorMessage.length > 0) { %>
+			<div class="alert alert-danger">
+				<%= errorMessage %>		
+			</div>
+		<% } %>
+
 		<div class="card">
 			<h5 class="card-title"> <%= campground.name %> </h5>
 			<img src="<%= campground.image %>" class="card-img-top inShow" alt="...">
 		  	<div class="card-body">
-		    	<p class="card-text m-0"><%= campground.description %></p>
+		  		<div class="row">
+		  			<div class="col">
+		  				<p class="card-text m-0 p-inline"><%= campground.description %></p> 
+		  			</div>
+		  			<div class="col">
+		  				<strong>
+		  					<p class="d-flex justify-content-end m-0"> $ <%= campground.price %>/Night</p>
+		  				</strong> 
+		  			</div>
+		  			
+		  		</div>
+		    	
 		    	<footer class="authorFooter">Created by <%= campground.author.username %></footer>
 
 		    	<% if(user && campground.author.id.equals(user._id)) { %>
