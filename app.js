@@ -24,39 +24,6 @@ mongoose.connect("mongodb+srv://userx:pass123@yelcamp-zbog0.mongodb.net/test?ret
 
 // mongoose.connect('mongodb://localhost:27017/YelpCamp',{useNewUrlParser: true, useUnifiedTopology: true});
 
-// const { MongoClient } = require("mongodb");
- 
-// // Replace the following with your Atlas connection string                                                                                                                                        
-
-// const url = "mongodb+srv://userx:pass123@yelcamp-zbog0.mongodb.net/test?retryWrites=true&w=majority";
-
-// const client = new MongoClient(url);
-
-// async function run() {
-//     try {
-//         await client.connect();
-//         console.log("Connected correctly to server");
-
-//     } catch (err) {
-//         console.log(err.stack);
-//     }
-//     finally {
-//         await client.close();
-//     }
-// }
-
-// run().catch(console.dir);
-
-
-// const MongoClient = require('mongodb').MongoClient;
-// const uri = "mongodb+srv://userx:pass123@yelcamp-zbog0.mongodb.net/test?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//  // perform actions on the collection object
-//   client.close();
-// });
-
 
 var db = mongoose.connection;
 
