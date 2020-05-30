@@ -35,7 +35,6 @@ router.post('/login',function(req,res,next){
 });
 
 router.get('/logout',function(req,res){
-	console.log('reached here');
 	req.logout();
 	req.flash('success','You just logged out');
 	res.redirect('back');

@@ -18,7 +18,6 @@ router.get("/campgrounds",function(req,res){
 			req.flash('error',error);
 			console.log(error);
 		} else {
-			console.log(req.route.path);
 			res.render("index",
 			{ 
 				campgrounds: campground,

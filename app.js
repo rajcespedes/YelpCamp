@@ -19,10 +19,10 @@ var commentRoutes = require('./routes/commentRoutes'),
 	campgroundRoutes = require('./routes/campgroundRoutes');
 
 
-// mongoose.connect("mongodb+srv://userx:zSVpiORR4HA9T7vk@cluster0-zbog0.mongodb.net/test?retryWrites=true&w=majority/yelpcamp",{useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://userx:pass123@yelcamp-zbog0.mongodb.net/test?retryWrites=true&w=majority",{useNewUrlParser: true, useUnifiedTopology: true});
 
 
-mongoose.connect('mongodb://localhost:27017/YelpCamp',{useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.connect('mongodb://localhost:27017/YelpCamp',{useNewUrlParser: true, useUnifiedTopology: true});
 
 // const { MongoClient } = require("mongodb");
  
@@ -48,14 +48,14 @@ mongoose.connect('mongodb://localhost:27017/YelpCamp',{useNewUrlParser: true, us
 // run().catch(console.dir);
 
 
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://userx:pass123@yelcamp-zbog0.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
- // perform actions on the collection object
-  client.close();
-});
+// const MongoClient = require('mongodb').MongoClient;
+// const uri = "mongodb+srv://userx:pass123@yelcamp-zbog0.mongodb.net/test?retryWrites=true&w=majority";
+// const client = new MongoClient(uri, { useNewUrlParser: true });
+// client.connect(err => {
+//   const collection = client.db("test").collection("devices");
+//  // perform actions on the collection object
+//   client.close();
+// });
 
 
 var db = mongoose.connection;
