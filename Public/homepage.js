@@ -17,7 +17,7 @@ setInterval(function(){
 		photosIndex += 1;
 
 			$('body').append(`<img style="opacity: 0">`);   	
-			// alert(i);
+
 			$(`img:last`).addClass(photos[photosIndex]);
 
 			var backgroundInterval = setInterval(function(){

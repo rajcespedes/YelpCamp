@@ -35,7 +35,7 @@ db.once('open', function() {
 
 app.set("view engine","ejs");
 
-app.use(express.static('public'));
+app.use(express.static('Public'));
 
 app.use(bodyParser.urlencoded({extended: true}));
 
