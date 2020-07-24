@@ -6,7 +6,7 @@
 <h1>Contacts web app </h1>
 
 <p>Simple web app with CRUD functions for contacts</p>
-<p>Deployed on heroku on the following <a src="https://young-dusk-84196.herokuapp.com/">link</a> </p>
+<p>Deployed on heroku on the following <a href="https://young-dusk-84196.herokuapp.com/">link</a> </p>
 
 <h2> Technologies used </h2>
 
