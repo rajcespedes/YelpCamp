@@ -1,7 +1,7 @@
-<h1> Project built as part of Web Developer Bootcamp. </h1>
+<h1> YelpCamp </h1>
 
 
-<p> YelpCamp is a web app that allows to list, create and add comments about campgrounds available to visit </p>
+<p> Project built as part of Web Developer Bootcamp. YelpCamp is a web app that allows to list, create and add comments about campgrounds available to visit </p>
 <p>Deployed on heroku on the following <a href="https://young-dusk-84196.herokuapp.com/">link</a> </p>
 
 <h2> Technologies used </h2>
